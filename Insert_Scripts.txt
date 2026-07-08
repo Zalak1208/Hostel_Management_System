@@ -1,0 +1,204 @@
+﻿header line 
+
+DATABASE MANAGEMENT SYSTEMS
+HMC (Hostel Management System) - 
+Sample Data INSERT Script
+
+
+INSTRUCTOR: PROF. PM JAT
+GROUP MEMBERS: 
+1. ZALAK THAKKAR         202401482
+2. DEVANSHI MODI         202401498
+3. DARSHAN TITA          202401485
+4. SHIVAM THANKI         202401483
+5. QUINCY VADI           202401488
+
+
+ horizontal line 
+
+SET search_path = hmc;
+
+-- ==1. ADMIN==
+INSERT INTO Admin (admin_id, name, email) VALUES
+(1, 'Amit Shah', 'amit.shah@hmc.com'),
+(2, 'Riya Patel', 'riya.patel@hmc.com');
+
+
+--==  2. STAFF (supertype)==
+--== Roles: Warden, Cleaning, Plumber, Carpenter, Electrician==
+
+--== WARDENS  ==
+INSERT INTO Staff (staff_id, name, contact_no, working_hours, working_days, salary, role, managed_by) VALUES
+--== MORNING SHIFT (6 AM - 2 PM) ==
+(201, 'Rohit Sharma', '9000010001', '6 AM - 2 PM', 'Mon-Sun', 40000, 'Warden', 1),
+(202, 'Sneha Joshi', '9000010002', '6 AM - 2 PM', 'Mon-Sun', 40000, 'Warden', 2),
+--== AFTERNOON SHIFT (2 PM - 10 PM) ==
+(206, 'Vikas Shah', '9000010006', '2 PM - 10 PM', 'Mon-Sun', 40000, 'Warden', 1),
+(207, 'Kavita Sharma', '9000010007', '2 PM - 10 PM', 'Mon-Sun', 40000, 'Warden', 2),
+--== NIGHT SHIFT (10 PM - 6 AM) ==
+(211, 'Anil Kumar', '9000010011', '10 PM - 6 AM', 'Mon-Sun', 42000, 'Warden', 1),
+(212, 'Anjali Iyer', '9000010012', '10 PM - 6 AM', 'Mon-Sun', 42000, 'Warden', 2),
+
+--== CLEANERS ==
+(301, 'Ramu Kaka', '9000020001', '8 AM - 3 PM', 'Mon-Sat', 18000, 'Cleaner', 1),
+(302, 'Shyam Lal', '9000020002', '8 AM - 3 PM', 'Mon-Sat', 18000, 'Cleaner', 1),
+(303, 'Pooja Das', '9000020003', '8 AM - 3 PM', 'Mon-Sat', 18000, 'Cleaner', 2),
+(304, 'Gopi Singh', '9000020004', '8 AM - 3 PM', 'Mon-Sat', 18000, 'Cleaner', 2),
+
+--== ELECTRICIANS ==
+(401, 'Arvind Mishra', '9000030001', '10 AM - 4 PM', 'Mon-Wed-Fri', 25000, 'Electrician', 1),
+
+--== CARPENTERS ==
+(501, 'Pankaj Verma', '9000040001', '11 AM - 5 PM', 'Mon-Wed-Fri', 24000, 'Carpenter', 2),
+
+--== PLUMBERS ==
+(601, 'Ramesh Yadav', '9000050001', '9 AM - 5 PM', 'Mon-Tue', 26000, 'Plumber', 1);
+
+--== 3. WING==
+INSERT INTO Wing (wing_id, wing_name, type, floors) VALUES
+(1, 'Wing A', 'Boys', 3),
+(2, 'Wing B', 'Girls', 3);
+--== 4. STAFF SUBTYPES==
+INSERT INTO Cleaning_Staff (staff_id, working_area) VALUES
+-- Wing 1--
+(301,'Wing A'),
+(302,'Wing A'),
+-- Wing 2–
+(303,'Wing B'),
+(304,'Wing B');
+INSERT INTO Plumber (staff_id) VALUES
+(601);
+INSERT INTO Carpenter (staff_id) VALUES
+(501);
+INSERT INTO Electrician (staff_id) VALUES
+(401);
+--==  5. WARDEN (assigned to wings)==
+INSERT INTO Warden (staff_id, assigned_wing) VALUES
+-- Wing 1–
+(201,1),
+(206,1),
+(211,1),
+-- Wing 2–
+(202,2),
+(207,2),
+(212,2);
+-- == 6. ROOMS==
+INSERT INTO Rooms (room_no, capacity, availability, wing_id) VALUES
+--== WING 1 (3 FLOORS) ==
+-- Floor 1–
+(101, 2, FALSE, 1),(102, 3, TRUE, 1),(103, 2, FALSE, 1),
+-- Floor 2–
+(201, 2, TRUE, 1),(202, 3, TRUE, 1),(203, 2, TRUE, 1),
+-- Floor 3–
+(301, 2, FALSE, 1),(302, 3, TRUE, 1),(303, 2, TRUE, 1), 
+--== WING 2 (3 FLOORS) ==
+-- Floor 1–
+(101, 2, FALSE, 2),(102, 3, TRUE, 2),(103, 2, TRUE, 2),
+-- Floor 2–
+(201, 2, FALSE, 2),(202, 3, TRUE, 2),(203, 2, TRUE, 2),
+-- Floor 3–
+(301, 2, TRUE, 2),(302, 3, TRUE, 2),(303, 2, TRUE, 2);
+--==  7. STUDENT==
+INSERT INTO Student (student_id, name, dob, contact, email, branch, emergency_contact, father_contact, father_name, year, health_details, status, program, resident_wing,resident_room, hmc_flag, gender) VALUES
+(20250001,'Rahul Sharma','2006-05-12','9001000001','rahul1@gmail.com','CSE','8001000001','7001000001','Mahesh Sharma',1,'Asthma','Active','BTech',1,101,TRUE,'Male'),
+(20250002,'Aman Verma','2006-08-22','9001000002','aman2@gmail.com','IT','8001000002','7001000002','Rakesh Verma',1,'None','Active','BTech',1,101,FALSE,'Male'),
+(20250021,'Priya Patel','2006-04-18','9001000021','priya21@gmail.com','CSE','8001000021','7001000021','Ramesh Patel',1,'None','Active','BTech',2,101,TRUE,'Female'),
+(20240003,'Kunal Mehta','2005-01-15','9002000003','kunal3@gmail.com','ECE','8002000003','7002000003','Suresh Mehta',2,'Allergy','Active','BTech',1,103,FALSE,'Male'),
+(20240004,'Rohit Patel','2005-11-10','9002000004','rohit4@gmail.com','CSE','8002000004','7002000004','Nitin Patel',2,'None','Active','BTech',1,103,FALSE,'Male'),
+(20240022,'Neha Shah','2005-09-09','9002000022','neha22@gmail.com','IT','8002000022','7002000022','Sanjay Shah',2,'Asthma','Active','BTech',2,101,FALSE,'Female'),
+(20230005,'Vikas Shah','2004-07-19','9003000005','vikas5@gmail.com','IT','8003000005','7003000005','Rajesh Shah',3,'Migraine','Active','BTech',1,201,TRUE,'Male'),
+(20230023,'Anjali Iyer','2004-01-21','9003000023','anjali23@gmail.com','ECE','8003000023','7003000023','Ravi Iyer',3,'None','Active','BTech',2,201,TRUE,'Female'),
+(20220006,'Manish Desai','2003-09-30','9004000006','manish6@gmail.com','ECE','8004000006','7004000006','Paresh Desai',4,'None','Active','BTech',1,203,FALSE,'Male'),
+(20220024,'Sneha Joshi','2003-07-30','9004000024','sneha24@gmail.com','CSE','8004000024','7004000024','Kiran Joshi',4,'Allergy','Active','BTech',2,201,FALSE,'Female');
+--==8. VISITOR==
+INSERT INTO Visitor (visitor_id, name, contact_no, aadhar_no, stay_duration, check_in, check_out, request_status, approved_by, allocated_wing, allocated_room) VALUES
+
+
+(1,'Rahul Verma', '9111111111','123456789001',2,'2026-04-01','2026-04-03','Approved',201,1,301),
+(2,'Sneha Joshi', '9222222222', '123456789002',1,'2026-04-02','2026-04-03','Pending',NULL,NULL,NULL),
+(3,'Amit Shah', '9333333333','123456789003',3,'2026-04-03','2026-04-06','Approved',206,1,302),
+(4,'Riya Desai', '9666666666','123456789006',2,'2026-04-06','2026-04-08','Approved',202,2,301);
+--== 9. SUGGESTIONS (by visitors)==
+INSERT INTO Suggestion (suggestion_id, description, visitor_id) VALUES
+
+
+(1,'Improve guest room cleanliness',1),
+(2,'Provide better visitor seating area',4);
+--==10. PAYMENT (base)==
+INSERT INTO Payment (transaction_id, method, date) VALUES
+
+
+(2026041000011,'UPI','2026-04-11'),
+(2026041000012,'Card','2026-04-10'),
+(2026041000013,'Cash','2026-04-12'),
+(2026041000014,'UPI','2026-04-10'),
+(2026041000015,'Card','2026-04-14'),
+(2026041000016,'Cash','2026-04-15'),
+(2026041000017,'UPI','2026-04-10'),
+(2026041000018,'Card','2026-04-17'),
+(2026041000019,'Cash','2026-04-17'),
+(2026041000020,'UPI','2026-04-10'),
+(2026041000021,'Card','2026-04-15'),
+(2026041000022,'Cash','2026-04-15'),
+(2026041000023,'UPI','2026-04-10');
+--==11. STUDENT_PAYMENT==
+INSERT INTO Student_Payment (transaction_id, student_id, amount) VALUES
+(2026041000011,20250001,5000),(2026041000012,20250002,5200),
+(2026041000013,20250021,5500), 
+(2026041000014,20240003,5500),(2026041000015,20240004,5000),
+(2026041000016,20240022,5300),
+(2026041000017,20230005,4900),
+(2026041000018,20230023,4800),
+(2026041000019,20220006,5100),
+(2026041000020,20220024,5000);
+--==12. VISITOR_PAYMENT==
+INSERT INTO Visitor_Payment (transaction_id, visitor_id, amount) VALUES
+(2026042000021,1,1000),
+(2026042000022,3,1500),
+(2026042000023,4,1200);
+--==13. COMPLAINT==
+INSERT INTO Complaint (comp_id, type, status, description, reporting_date, assigned_by, student_id, solved_by) VALUES
+(1,'Electrical','Open','Fan not working','2026-04-01',201,20240003,NULL),
+(2,'Plumbing','Resolved','Water leakage','2026-04-02',206,20230005,601),
+(3,'Cleaning','Open','Dirty corridor','2026-04-03',206,20250001,NULL),
+(4,'Carpentry','Resolved','Broken table','2026-04-05',207,20250003,501);
+--== 14. PARCEL==
+INSERT INTO Parcel (parcel_id, arrival_date, timestamp, status, received_date, student_id, handover_by) VALUES
+(1,'2026-04-01','10:00:00','Received','2026-04-02',20250001,201),
+(2,'2026-04-02','11:30:00','Pending',NULL,20240006,NULL),
+(3,'2026-04-03','09:45:00','Received','2026-04-04',20230008,202);
+--==15. OVERNIGHT_LEAVE==
+INSERT INTO Overnight_Leave (leave_id, request_date, from_date, to_date, return_timestamp, status, student_id, approved_by) VALUES
+(1,'2026-04-01','2026-04-05','2026-04-06',NULL,'Approved',20240005,206),
+(2,'2026-04-02','2026-04-06','2026-04-07',NULL,'Pending',20250001,NULL);
+--==16. ATTENDANCE==
+INSERT INTO Attendance (student_id, date, status) VALUES
+(20250001,'2026-04-01','Present'),
+(20240004,'2026-04-01','Absent'),
+(20230007,'2026-04-01','Leave'),
+(20220009,'2026-04-02','Present'),
+(20250002,'2026-04-02','Present'),
+(20240005,'2026-04-02','Absent'),
+(20230008,'2026-04-03','Absent'),
+(20220010,'2026-04-03','Present'),
+(20250003,'2026-04-03','Present'),
+(20240006,'2026-04-04','Leave'),
+(20230007,'2026-04-04','Absent'),
+(20220009,'2026-04-04','Present'),
+(20250001,'2026-04-05','Present'),
+(20240004,'2026-04-05','Absent'),
+(20230008,'2026-04-05','Leave');
+
+
+
+
+
+
+   
+
+
+
+
+
+
+ footer line
